@@ -1,0 +1,51 @@
+{% extends 'post/base.html' %}
+{% block content %}
+    <div class="columns is-mobile">
+        <div class="column is-offset-one-fifth">
+
+
+            <div class="field has-addons">
+                <form>
+                    <div class="control">
+                        <input class="input is-large" name="q" type="text" placeholder="Search users..."
+                               value="{{ request.GET.q }}">
+                    </div>
+                    <div class="control">
+                        <button type="submit" class="button is-success">Search</button>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="column is-offset-one-quarter is-half ">
+        <div class="">
+            {% for user in object_list %}
+                <div class="box">
+                    <article class="media">
+                        <div class="media-left">
+                            <figure class="image is-128x128 ">
+                                <a href="{% url 'profile' user.user.username %}">
+                                    <img src="{{ user.picture.url }}" class="is-rounded" alt="Placeholder image">
+                                </a>
+                            </figure>
+                        </div>
+                        <div class="media-content">
+                            <div class="content">
+                                <p>
+                                    <a href="{% url 'profile' user.user.username %}" style="color: black">
+                                        <strong>{{ user.user }}</strong><small> @{{ user.bio }}</small>
+                                    </a>
+                                </p>
+
+                            </div>
+                            <a class="button is-primary" href="{% url 'follow' user.user.id %}">Follow</a>
+                        </div>
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

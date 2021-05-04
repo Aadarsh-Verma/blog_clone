@@ -1,0 +1,102 @@
+{% extends 'post/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <article class="media">
+
+        <div class="media-left">
+            <figure class="image is-256x256">
+                {% if profile.picture %}
+
+                    <img class="is-rounded" src="{{ profile.picture.url }}">
+                {% else %}
+                    <img class="is-rounded" src="https://bulma.io/images/placeholders/256x256.png">
+                {% endif %}
+            </figure>
+        </div>
+
+        <div class="media-content">
+
+            <div class="content">
+                <h1 style="font-weight: bold;" class="title is-1">{{ profile.user }}</h1>
+                <h2 class="subtitle is-3">@{{ profile.user }}</h2>
+                <h2 class="subtitle is-4">{{ profile.bio }}</h2>
+
+                {% if user.is_authenticated and user != profile.user %}
+                    <div class="media-right">
+                    <a href="" class="button is-danger">Unfollow</a>
+                {% elif user != profile.user %}
+                    <a href="{% url 'follow' profile.id %}" class="button is-success">Follow</a>
+                {% endif %}
+                </div>
+
+
+            </div>
+
+
+            <nav class="level is-mobile" style="margin-right: 400px;">
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">Posts</p>
+                        <p class="title">{{ posts.count }}</p>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">Following</p>
+                        <p class="title">{{ following.count }}</p>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">Followers</p>
+                        <p class="title">{{ followers.count }}</p>
+                    </div>
+                </div>
+            </nav>
+
+            <p class="subtitle is-5">{% if profile.profile_info %}{{ profile.profile_info }}{% endif %}</p>
+
+            {% if user.is_authenticated and user == profile.user %}
+                <a href="{% url 'update' %}" class="button mr-4">Edit profile</a>
+            {% endif %}
+
+        </div>
+    </article>
+
+
+
+    <section class="section">
+        <div class="container">
+
+            <div class="tabs is-centered">
+                <ul>
+                    <li class="{% if url_name == 'profile' %}is-active{% endif %}">
+                        {#                        <a href="{% url 'profile' profile.user %}"><i class="material-icons">dashboard</i>Posts</a>#}
+                    </li>
+
+                    <li class="{% if url_name == 'profilefavorites' %}is-active{% endif %}">
+                        {#                        <a href="{% url 'profilefavorites' profile.user %}"><i class="material-icons">save_alt</i>Saved</a>#}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div class="row" style="width: 935px;height: max-content;margin: 0 auto">
+        {% for post in posts %}
+            <div class="col-sm-4" id="mygrid">
+                <img class="" src="{{ post.picture.url }}" style="height: 293px;width: 293px">
+                                <div class="box-element product">
+                                    <div class="control-label">
+                                    <h6 style="display: inline-block"><strong>{{ post.caption }}</strong></h6>
+                                    <h4 style="display: inline-block;margin-left: 50px"><strong>Like  {{ post.like_post.count }}</strong></h4>
+                                    </div>
+            </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock content %}

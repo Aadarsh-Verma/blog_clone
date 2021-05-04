@@ -1,0 +1,105 @@
+{% extends 'post/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="columns is-mobile is-multiline is-centered main"style="margin-top: 50px">
+        <article class="media">
+            <div class="media-left">
+                <figure class="image is-256x256">
+                    {% if profile.picture %}
+                        <img class="is-rounded" src="{{ profile.picture.url }}">
+                    {% else %}
+                        <img class="is-rounded" src="https://bulma.io/images/placeholders/256x256.png">
+                    {% endif %}
+                </figure>
+            </div>
+
+            <div class="media-content">
+                <div class="content">
+                    <h1 style="font-weight: bold;" class="title is-2">{{ profile.user }}</h1>
+
+                    <h4 class="subtitle is-5">{{ profile.bio }}</h4>
+
+                    {% if user.is_authenticated and user != profile.user %}
+                        <div class="media-right">
+                        <a href="" class="button is-danger">Unfollow</a>
+                    {% elif user != profile.user %}
+                        <a href="{% url 'follow' profile.id %}" class="button is-success">Follow</a>
+                    {% endif %}
+                    </div>
+                </div>
+
+
+                <nav class="level is-mobile" style="margin: 0 50px">
+                    <div class="level-item has-text-centered">
+                        <div>
+                            <p class="heading">Posts</p>
+                            <p class="title">{{ posts.count }}</p>
+                        </div>
+                    </div>
+                    <div class="level-item has-text-centered">
+                        <div>
+                            <p class="heading">Following</p>
+                            <p class="title">{{ following.count }}</p>
+                        </div>
+                    </div>
+                    <div class="level-item has-text-centered">
+                        <div>
+                            <p class="heading">Followers</p>
+                            <p class="title">{{ followers.count }}</p>
+                        </div>
+                    </div>
+                </nav>
+
+                <p class="subtitle is-5">{% if profile.profile_info %}{{ profile.profile_info }}{% endif %}</p>
+
+                {% if user.is_authenticated and user == profile.user %}
+                    <a href="{% url 'update' %}" class="button mr-4">Edit profile</a>
+                {% endif %}
+
+            </div>
+        </article>
+
+        <section class="section">
+            <div class="container">
+
+                <div class="tabs is-centered">
+                    <ul>
+                        <li class="{% if url_name == 'profile' %}is-active{% endif %}">
+                            {#                        <a href="{% url 'profile' profile.user %}"><i class="material-icons">dashboard</i>Posts</a>#}
+                        </li>
+
+                        <li class="{% if url_name == 'profilefavorites' %}is-active{% endif %}">
+                            {#                        <a href="{% url 'profilefavorites' profile.user %}"><i class="material-icons">save_alt</i>Saved</a>#}
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="columns is-mobile is-multiline is-centered">
+
+                    {% for post in posts %}
+                        <div class="column is-one-third">
+                            {#                        <div class="box">#}
+                            <figure class="image is-4by3">
+                                <a href="">
+                                    <img src="{{ post.picture.url }}" alt="Placeholder image">
+                                </a>
+                            </figure>
+                            {#                        {% else %}#}
+                            {#                            <a href="{{ post.get_absolute_url }}">#}
+                            {#                                <video width="640" controls="controls" preload="metadata">#}
+                            {#                                    <source src="{{ post.content.first.file.url }}#t=0.5" type="video/mp4">#}
+                            {#                                </video>#}
+                            {#                            </a>#}
+                            {#                        {% endif %}#}
+
+
+                            {#                        </div>#}
+                        </div>
+                    {% endfor %}
+                </div>
+        </section>
+    </div>
+
+
+{% endblock content %}
