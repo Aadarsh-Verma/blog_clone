@@ -1,3 +1,4 @@
+import django_filters
 from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -13,6 +14,14 @@ def UniqueUser(value):
 def UniqueEmail(value):
     if User.objects.filter(email__iexact=value):
         raise ValidationError('Email already exists')
+
+
+# class QuestionFilter(django_filters.FilterSet):
+#     name = CharFilter(field_name='name', lookup_expr='icontains')
+#
+#     class Meta:
+#         model = Profile
+#         fields = ['name', 'difficulty']
 
 
 class SignUpForm(forms.ModelForm):

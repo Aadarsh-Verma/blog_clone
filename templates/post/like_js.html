@@ -1,0 +1,65 @@
+<script>
+
+    function addLikeList(formdata, ID) {
+        if (formdata) {
+            $.ajax({
+                url: "{% url 'like' %}",
+                method: 'POST',
+                data: formdata,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    console.log(data)
+                    const element = '.like-count-' + ID;
+                    $(element).html(data['like'])
+                    console.log($(element).attr('class'))
+                }
+            })
+        }
+    }
+
+    function addLikeDetail(formdata) {
+        if (formdata) {
+            console.log("FormData Validated")
+            $.ajax({
+                url: "{% url 'like' %}",
+                method: 'POST',
+                data: formdata,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    console.log(data)
+                    {#if(data)#}
+                        console.log(data)
+                    $('.like-count-detail').html(data['like'])
+                }
+            })
+        }
+    }
+
+    $(document).ready(function () {
+
+        const like_list = $('.like-list')
+        like_list.click(function (e) {
+            e.preventDefault();
+            const ID = this.id;
+            let formdata = new FormData();
+            formdata.append('pk', ID);
+            console.log(formdata);
+            addLikeList(formdata, ID);
+        });
+
+
+    });
+</script>
+
+
+{#like_list.addEventListener('click', addLike(id))#}
+{#like_list.click(addLike(id));#}
+{#console.log(id);#}
+{#const like_detail = document.querySelector('.like-detail')#}
+{#const id_detail = like_detail.attr("class")#}
+{#like_detail.addEventListener('click', addLike(id_detail))#}
+{#console.log(id_detail)#}

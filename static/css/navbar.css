@@ -1,0 +1,14 @@
+.navbar-start span {
+    margin-top: 5px;
+    font-family: cursive;
+    font-size: 25px;
+    color: black;
+    margin-right: 30px;
+}
+.is-primary{
+    background-color: #1161ee;
+}
+
+.mynav{
+
+}

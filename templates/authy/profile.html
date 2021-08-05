@@ -85,17 +85,19 @@
     </section>
 
     <div class="row" style="width: 935px;height: max-content;margin: 0 auto">
-        {% for post in posts %}
-            <div class="col-sm-4" id="mygrid">
-                <img class="" src="{{ post.picture.url }}" style="height: 293px;width: 293px">
-                                <div class="box-element product">
-                                    <div class="control-label">
-                                    <h6 style="display: inline-block"><strong>{{ post.caption }}</strong></h6>
-                                    <h4 style="display: inline-block;margin-left: 50px"><strong>Like  {{ post.like_post.count }}</strong></h4>
-                                    </div>
-            </div>
-            </div>
-        {% endfor %}
+{#        {% for post in posts %}#}
+{#            <div class="col-sm-4" id="mygrid">#}
+{#                <a href="{% url 'post_detail' post.id %}">#}
+{#                <img class="" src="{{ post.picture.url }}" style="height: 293px;width: 293px " href="{% url 'post_detail' post.id %}">#}
+{#                </a>#}
+{#                                <div class="box-element product">#}
+{#                                    <div class="control-label">#}
+{#                                    <h6 style="display: inline-block"><strong>{{ post.caption }}</strong></h6>#}
+{#                                    <h4 style="display: inline-block;margin-left: 50px"><strong>Like  {{ post.like_post.count }}</strong></h4>#}
+{#                                    </div>#}
+{#            </div>#}
+{#            </div>#}
+{#        {% endfor %}#}
     </div>
 
 

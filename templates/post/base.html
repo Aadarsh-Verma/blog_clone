@@ -1,94 +1,84 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+              crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+        <link rel="stylesheet" href="{% static 'css/post.css' %}">
+
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
 
 
-<nav class="navbar is-danger is-fixed-top" style="" role="navigation" aria-label="main navigation">
-    <div class="">
-        {#        <a class="" href="https://bulma.io">#}
-        <img src="{% static 'images/logo.png' %}" width="50" height="50">
-        {#        </a>#}
-    </div>
+    <nav class="navbar mynav is-danger is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="">
+            <img src="{% static 'images/logo.png' %}" width="50" height="50">
+        </div>
 
-    <div id="navbarBasicExample" class="navbar-menu">
-        <div class="navbar-start">
-            <span style="margin-top: 5px;font-family: cursive;font-size: 25px;color: black">Instagram</span>
-            <a class="navbar-item" href="{% url 'home' %}">
-                Home
-            </a>
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <span>Socialite</span>
+{#                <a class="navbar-item" href="{% url 'home' %}">#}
+{#                    Home#}
+{#                </a>#}
 
-            <a class="navbar-item" href="{% url 'profile' request.user %}">
-                Profile
+                <a class="navbar-item" href="{% url 'profile' request.user %}">
+                    Profile
 
-            </a>
-            <a class="navbar-item" href="{% url 'post_list' %}">
-                Post
-            </a>
-            <a class="navbar-item" href="{% url 'search' %}">
-                Search
-            </a>
-
-            <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
-                    More
+                </a>
+                <a class="navbar-item" href="{% url 'user_post_list' %}">
+                    Post
+                </a>
+                <a class="navbar-item" href="{% url 'search' %}">
+                    Search
                 </a>
 
-                <div class="navbar-dropdown">
-                    <a class="navbar-item">
-                        About
+            </div>
+
+            <div class="navbar-end mr-5">
+                <div class="user mr-5 mt-3">Welcome {{ request.user.username }}</div>
+                {% if user.is_authenticated %}
+                    <div class="buttons">
+                        <a class="btn btn-warning rounded mb-2" href="{% url 'logout' %}">
+                            <strong>Sign Out</strong>
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="buttons">
+                    <a class="button is-primary mb-2" href="{% url 'login' %}">
+                        <strong>Sign In</strong>
                     </a>
-                    <a class="navbar-item">
-                        Jobs
-                    </a>
-                    <a class="navbar-item">
-                        Contact
-                    </a>
-                    <hr class="navbar-divider">
-                    <a class="navbar-item">
-                        Report an issue
-                    </a>
+                    <div class="buttons">
+                        <a class="button is-primary mb-2" href="{% url 'signup' %}">
+                            <strong>Sign Up</strong>
+                        </a>
+                    </div>
+                {% endif %}
                 </div>
             </div>
         </div>
+    </nav>
 
-        <div class="navbar-end">
-            {% if user.is_authenticated %}
-                <div class="buttons">
-                    <a class="button is-primary" href="{% url 'logout' %}">
-                        <strong>Sign Out</strong>
-                    </a>
-                </div>
-            {% else %}
-                <div class="buttons">
-                <a class="button is-primary" href="{% url 'login' %}">
-                    <strong>Sign In</strong>
-                </a>
-                <div class="buttons">
-                    <a class="button is-primary" href="{% url 'signup' %}">
-                        <strong>Sign Up</strong>
-                    </a>
-                </div>
-            {% endif %}
-            </div>
+    <section class="section">
+        <div class="container">
+            {% block content %}
+            {% endblock %}
         </div>
-    </div>
-</nav>
-
-<section class="section">
-    <div class="container">
-        {% block content %}
-        {% endblock %}
-    </div>
-</section>
-</body>
+    </section>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
 </html>

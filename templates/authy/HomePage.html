@@ -1,9 +1,12 @@
 {% extends 'post/base.html' %}
 {% block content %}
-You are logged in as {{ request.user }}
+    You are logged in as {{ request.user }}
     ID {{ request.user.id }}
-<br>
-Sign Up <a href="{% url 'signup' %}">Sign Up</a>
-Login <a href="{% url 'login' %}">Login</a>
-Edit Profile <a href="{% url 'update' %}">Update</a>
+    <br>
+    Sign Up <a href="{% url 'signup' %}">Sign Up</a>
+    Login <a href="{% url 'login' %}">Login</a>
+    Edit Profile <a href="{% url 'update' %}">Update</a>
+    <br><br>
+    User Post List View  <a href="{% url 'user_post_list' %}">User Post List</a>
+    
 {% endblock %}

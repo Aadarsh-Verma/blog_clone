@@ -1,0 +1,36 @@
+<script>
+    function addLikeDetail(formdata) {
+        if (formdata) {
+            console.log("FormData Validated")
+            $.ajax({
+                url: "{% url 'like' %}",
+                method: 'POST',
+                data: formdata,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    console.log(data)
+                    {#if(data)#}
+                        console.log(data)
+                    $('.like-count-detail').html(data['like'])
+                }
+            })
+        }
+    }
+
+    $(document).ready(function () {
+
+        const like_list = $('.like-detail')
+        like_list.click(function (e) {
+            e.preventDefault();
+            const ID = this.id;
+            let formdata = new FormData();
+            formdata.append('pk', ID);
+            console.log(formdata);
+            addLikeDetail(formdata);
+        });
+
+
+    });
+</script>

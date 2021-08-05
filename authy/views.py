@@ -1,3 +1,5 @@
+from django import template
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
@@ -10,6 +12,7 @@ from post.models import Follow, Post
 
 def SignUpView(request):
     if request.method == "POST":
+
         form = SignUpForm(request.POST, request.FILES)
         if form.is_valid():
             username = form.cleaned_data.get("username")
@@ -35,9 +38,9 @@ def EditProfileView(request):
             new_form = profile_form.save()
             new_form.email = email
             new_form.save()
-            Profile.objects.get(user__username=user_form.cleaned_data.get('username')).refresh_from_db()
-            print(Profile.objects.get(user__username=user_form.cleaned_data.get('username')))
-            return redirect('login')
+            profile = Profile.objects.get(user__username=user_form.cleaned_data.get('username'))
+            print(profile)
+            return redirect('profile', user_id=profile.user.username)
     user_form = UpdateUserForm(instance=request.user)
     profile_form = UpdateProfileForm(instance=request.user.profile)
     context = {'user_form': user_form, 'profile_form': profile_form}
@@ -59,3 +62,49 @@ def ProfileView(request, user_id):
 class Search(LoginRequiredMixin, ListView):
     model = Profile
     template_name = 'authy/user_list.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(Search, self).get_context_data(**kwargs)
+        print(context)
+        logged_in_user = self.request.user
+        following = Follow.objects.filter(follower=logged_in_user)
+        print(following)
+        following_names = []
+        for person in following:
+            following_names.append(person.follower.username)
+        for profile in context['object_list']:
+            print(profile.user.username)
+            person_name = profile.user.username
+            if person_name in following_names:
+                profile['following'] = True
+        print(context)
+        return context
+
+
+@login_required
+def SearchPage(request):
+    all_users = Profile.objects.exclude(user=request.user)
+    logged_in_user = request.user
+    if request.method == 'GET':
+        name = request.GET.get('username')
+        print(name)
+        if name:
+            all_users = all_users.filter(user__username__istartswith=name)
+
+    following = Follow.objects.filter(follower=logged_in_user)
+    following_names = []
+    for person in following:
+        following_names.append(person.master.username)
+
+    for user in all_users:
+        username = user.user.username
+        if username in following_names:
+            user.following = True
+        else:
+            user.following = False
+    for user in all_users:
+        print(user.following)
+    context = {
+        'object_list': all_users,
+    }
+    return render(request, 'authy/user_list.html', context)

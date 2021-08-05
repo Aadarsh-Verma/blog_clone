@@ -27,6 +27,8 @@ class Like(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='like_post')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='like_user')
 
+    def __str__(self):
+        return "{0} likes {1}".format(self.user.username,self.post.caption)
 
 class Follow(models.Model):
     master = models.ForeignKey(User, on_delete=models.CASCADE, related_name='master')

@@ -1,16 +1,35 @@
+{% load crispy_forms_filters %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Registration Forms</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-<form method="POST" enctype="multipart/form-data" >
-    {% csrf_token %}
-    {{ form.as_p }}
+    <head>
+        <meta charset="UTF-8">
+        <title>Registration Forms</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-    <input type="submit" class="btn btn-primary">
-</form>
-</body>
+        <style>
+            .main-reg {
+                margin: 50px auto;
+                width: 450px;
+                padding: 30px;
+                box-shadow: 3px 3px 3px 3px #d9d9d9;
+            }
+            .socio-header-text{
+                font-family: "Roboto Light", cursive;
+                color: crimson;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container main-reg">
+            <h2 class="socio-header-text">Welcome to socialite</h2>
+            {{ form | as_crispy_errors }}
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form | crispy }}
+
+                <input type="submit" class="btn btn-primary" value="Register">
+            </form>
+        </div>
+    </body>
 </html>

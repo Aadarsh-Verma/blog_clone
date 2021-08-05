@@ -13,7 +13,7 @@ class PostCreationForms(forms.ModelForm):
 
 
 class CommentCreationForm(forms.ModelForm):
-    content = forms.Textarea()
+    content = forms.CharField(label="",widget=forms.Textarea(attrs={'rows': 4, 'cols': 70}))
 
     class Meta:
         model = Comment

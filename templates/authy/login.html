@@ -1,14 +1,64 @@
+{#{% load crispy_forms_filters %}#}
+{#{% load crispy_forms_tags %}#}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#    <head>#}
+{#        <meta charset="UTF-8">#}
+{#        <title>Login</title>#}
+{#    </head>#}
+{#    <body>#}
+{#        <form method="POST">#}
+{#            {% csrf_token %}#}
+{#            {{ form | crispy }}#}
+{#            <input type="submit">#}
+{#        </form>#}
+{#    </body>#}
+{#</html>#}
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" >
-</form>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Login</title>
+        <link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+    </head>
+    <body>
+        <div class="login-wrap">
+            <div class="login-html">
+            <h2>Login To Socialite</h2>
+                <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign
+                In</label>
+                <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
+
+                <div class="login-form">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="sign-in-htm">
+                            <div class="group">
+
+                                <label for="user" class="label">Username</label>
+                                <input id="user" type="text" class="input" name="username">
+                            </div>
+                            <div class="group">
+                                <label for="pass" class="label">Password</label>
+                                <input id="pass" type="password" class="input" data-type="password" name="password">
+                            </div>
+
+                            <div class="group">
+                                <input type="submit" class="button" value="Sign In">
+                            </div>
+                            <div class="hr"></div>
+                            <div class="foot-lnk">
+                                <a href="#forgot">Forgot Password?</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript" src="{% static 'js/login.js' %}"></script>
+
 </html>
