@@ -19,12 +19,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('authy/',include('authy.urls')),
-    path('post/',include('post.urls')),
-    path('',TemplateView.as_view(template_name='authy/HomePage.html'),name='home')
+    path('authy/', include('authy.urls')),
+    path('post/', include('post.urls')),
+    path('', TemplateView.as_view(template_name='authy/HomePage.html'), name='home')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
