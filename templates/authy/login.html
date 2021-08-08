@@ -8,7 +8,8 @@
 
         <style>
             .main-reg {
-                margin: 50px auto;
+                {#margin-top: 100px;#}
+                margin: 150px auto;
                 width: 450px;
                 padding: 30px;
                 box-shadow: 3px 3px 3px 3px #d9d9d9;
@@ -16,7 +17,12 @@
 
             .socio-header-text {
                 font-family: "Roboto Light", cursive;
-                color: crimson;
+                color: #F14668;
+            }
+
+            .primary-button {
+                background-color: #F14668;
+                color: white;
             }
         </style>
     </head>
@@ -25,6 +31,7 @@
         <div class="container main-reg">
             <h2 class="socio-header-text">Login to socialite</h2>
             {{ form | as_crispy_errors }}
+            <br><br>
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
@@ -38,8 +45,8 @@
                     <input type="password" class="form-control" id="exampleInputPassword1"
                            placeholder="Password" name="password">
                 </div>
-
-                <input type="submit" class="btn btn-primary" value="Login">
+                <br><br>
+                <input type="submit" class="btn primary-button" value="Login">
             </form>
         </div>
     </body>

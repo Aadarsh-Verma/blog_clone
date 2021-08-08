@@ -87,7 +87,7 @@ def SearchPage(request):
     logged_in_user = request.user
     if request.method == 'GET':
         name = request.GET.get('username')
-        print(name)
+        # print(name)
         if name:
             all_users = all_users.filter(user__username__istartswith=name)
 
@@ -102,8 +102,8 @@ def SearchPage(request):
             user.following = True
         else:
             user.following = False
-    for user in all_users:
-        print(user.following)
+    # for user in all_users:
+    # print(user.following)
     context = {
         'object_list': all_users,
     }
