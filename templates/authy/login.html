@@ -8,8 +8,7 @@
 
         <style>
             .main-reg {
-                {#margin-top: 100px;#}
-                margin: 150px auto;
+            {#margin-top: 100px;#} margin: 150px auto;
                 width: 450px;
                 padding: 30px;
                 box-shadow: 3px 3px 3px 3px #d9d9d9;
@@ -29,6 +28,7 @@
 
     <body>
         <div class="container main-reg">
+
             <h2 class="socio-header-text">Login to socialite</h2>
             {{ form | as_crispy_errors }}
             <br><br>
@@ -48,6 +48,8 @@
                 <br><br>
                 <input type="submit" class="btn primary-button" value="Login">
             </form>
+            <br>
+            <span>Don't Have an account &nbsp;<a href="{% url 'signup' %}" style="color: #F14668">Sign Up</a></span>
         </div>
     </body>
 </html>
