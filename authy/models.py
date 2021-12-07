@@ -11,7 +11,7 @@ from django.urls import reverse
 
 
 def user_directory_path(instance, filename, ):
-    path = 'user_{0}/profile.jpg'.format(instance.user.id)
+    path = 'user_{0}/profile_{1}.jpg'.format(instance.user.id, filename)
     full_path = os.path.join(settings.MEDIA_ROOT, path)
     if os.path.exists(full_path):
         os.remove(full_path)
@@ -33,7 +33,6 @@ class Profile(models.Model):
             pic = Image.open(self.picture.path)
             pic.thumbnail(SIZE, Image.LANCZOS)
             pic.save(self.picture.path)
-
 
     def __str__(self):
         return self.user.username

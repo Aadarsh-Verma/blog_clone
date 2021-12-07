@@ -73,10 +73,28 @@ WSGI_APPLICATION = 'blog_clone.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
+
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        'NAME': 'postgres',
+
+        'USER': 'abhishek@socialite-db',
+
+        'PASSWORD': 'Aadarsh@123',
+
+        'HOST': 'socialite-db.postgres.database.azure.com',
+
+        'PORT': '5432',
     }
 }
 
@@ -117,7 +135,7 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-MEDIA_URL = '/media/'
+# MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = 'login'
@@ -128,14 +146,14 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 """Azure Configs"""
-# DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
-# AZURE_ACCOUNT_NAME = 'socialite'
-# AZURE_CONTAINER = 'media'
-# AZURE_ACCOUNT_KEY = 'AnkgnTYM+354vqxXHSW3ZvNGMYJLA3sYZmS3PusZyNrEkjTLlQFirELfQFBWx+JE6oSbMJHhE9O+cKf874je/A=='
-#
-# # AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.azureedge.net'  # CDN URL
-# AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'  # Files URL
-# AZURE_BLOB_MAX_MEMORY_SIZE = '5MB'
-# AZURE_MEDIA_CONTAINER = 'media'
-#
-# MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{AZURE_MEDIA_CONTAINER}/'
+DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+AZURE_ACCOUNT_NAME = 'socialite'
+AZURE_CONTAINER = 'media'
+AZURE_ACCOUNT_KEY = 'AnkgnTYM+354vqxXHSW3ZvNGMYJLA3sYZmS3PusZyNrEkjTLlQFirELfQFBWx+JE6oSbMJHhE9O+cKf874je/A=='
+
+# AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.azureedge.net'  # CDN URL
+AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'  # Files URL
+AZURE_BLOB_MAX_MEMORY_SIZE = '5MB'
+AZURE_MEDIA_CONTAINER = 'media'
+
+MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{AZURE_MEDIA_CONTAINER}/'
